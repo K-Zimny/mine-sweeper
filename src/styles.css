@@ -2,3 +2,8 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.board td {
+  border: 1px solid black;
+  padding: 3rem;
+}
