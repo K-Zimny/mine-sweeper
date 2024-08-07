@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cell from "./Cell";
 
 const INITIAL_GAME_STATE = [
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -11,20 +12,10 @@ const INITIAL_GAME_STATE = [
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-const Cell = ({ onGameUpdate, gameState, id }) => {
-  return (
-    <td
-      className={gameState[id[0]][id[1]] === 1 ? "active" : ""}
-      onClick={onGameUpdate}
-    >
-      {gameState[id[0]][id[1]] === 1 ? "X" : "[ ]"}
-    </td>
-  );
-};
-
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
 
+  // Map over rows and cells, updating the selected cell.
   const handleGameUpdate = (r, c) => {
     setGameState((prevState) => {
       return prevState.map((row, rowIndex) =>
@@ -38,11 +29,12 @@ export default function Board() {
   return (
     <table className="board">
       <tbody>
+        {/*Map over initial game state, generating all rows and cells*/}
         {INITIAL_GAME_STATE.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {row.map((cell, cellIndex) => (
               <Cell
-                key={cellIndex}
+                key={[rowIndex, cellIndex]}
                 id={[rowIndex, cellIndex]}
                 gameState={gameState}
                 onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
