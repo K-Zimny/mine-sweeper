@@ -3,7 +3,15 @@
   text-align: center;
 }
 
+.board {
+  margin: auto;
+}
+
 .board td {
   border: 1px solid black;
-  padding: 3rem;
+  padding: 1.5rem;
+}
+
+.active {
+  background-color: darkgoldenrod;
 }

@@ -1,47 +1,55 @@
 import React, { useState } from "react";
 
 const INITIAL_GAME_STATE = [
-  [0, 0],
-  // [0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-const Cell = ({ onGameUpdate }) => {
-  return <td onClick={onGameUpdate}>[]</td>;
+const Cell = ({ onGameUpdate, gameState, id }) => {
+  return (
+    <td
+      className={gameState[id[0]][id[1]] === 1 ? "active" : ""}
+      onClick={onGameUpdate}
+    >
+      {gameState[id[0]][id[1]] === 1 ? "X" : "[ ]"}
+    </td>
+  );
 };
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
 
-  console.log("gameStaate", gameState);
-
   const handleGameUpdate = (r, c) => {
-    console.log(c);
-    console.log("handleGameUpdate");
     setGameState((prevState) => {
-      const newState = prevState.map((row, rowIndex) =>
+      return prevState.map((row, rowIndex) =>
         rowIndex == r
           ? row.map((cell, cellIndex) => (cellIndex == c ? (cell = 1) : cell))
           : row
       );
-      return newState;
     });
   };
 
-  console.log(gameState);
   return (
     <table className="board">
       <tbody>
-        <tr>
-          <Cell
-            className={gameState[0][0] == 1 ? "active" : ""}
-            onGameUpdate={() => handleGameUpdate("0", "0")}
-          ></Cell>
-          <Cell></Cell>
-        </tr>
-        {/* <tr>
-          <Cell></Cell>
-          <Cell></Cell>
-        </tr> */}
+        {INITIAL_GAME_STATE.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <Cell
+                key={cellIndex}
+                id={[rowIndex, cellIndex]}
+                gameState={gameState}
+                onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
+              />
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
