@@ -1,3 +1,13 @@
+body {
+  background: linear-gradient(45deg, black, transparent);
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+h2 {
+  color: whitesmoke;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -12,13 +22,28 @@
 }
 
 .board td {
-  border: 1px solid #1f1f1f;
+  border: 1px solid #8b8b8b;
   width: 60px;
   height: 60px;
-  /* border-style: groove; */
   background: #9d9d9d;
+  &:hover {
+    background: #aba2a2;
+  }
 }
 
-.board td.active {
+.board td.mine {
   background-color: rgb(209, 23, 23);
+}
+
+.board td.empty {
+  background: #d4d4d4;
+}
+
+button {
+  display: block;
+  margin: auto;
+  background: ghostwhite;
+  padding: 0.25rem 0.5rem;
+  border: 5px groove whitesmoke;
+  font-size: 1.25rem;
 }
