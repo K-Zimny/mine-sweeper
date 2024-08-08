@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
+import { taunts } from "../taunts";
 
 const INITIAL_GAME_STATE = [
   [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 1],
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 1],
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 1],
 ];
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
@@ -66,7 +71,7 @@ export default function Board() {
       </table>
       {isOver && (
         <>
-          <h2>Wow, you're bad at this.</h2>
+          <h2>{taunts[getRandomInt(taunts.length)]}</h2>
           <button onClick={handleNewGame}>Play Again?</button>
         </>
       )}

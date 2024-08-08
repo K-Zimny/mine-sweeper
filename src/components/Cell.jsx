@@ -11,7 +11,7 @@ export default function Cell({ onGameUpdate, gameState, id }) {
       }
       onClick={onGameUpdate}
     >
-      {gameState[id[0]][id[1]] === 2 ? "X" : "  "}
+      {gameState[id[0]][id[1]] === 2 ? "💣" : gameState[id[0]][id[1]]}
     </td>
   );
 }
