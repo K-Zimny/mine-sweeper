@@ -6,6 +6,7 @@ const taunts = [
   ["No comment..."],
   ["I hope this isnt your day job"],
   ["Thats gonna cost you an arm and a leg"],
+  ["What are the odds!"],
 ];
 
 export { taunts };

@@ -2,20 +2,33 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
 
-const INITIAL_GAME_STATE = [
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 0, 0, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 0, 1],
-];
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+function genArray(complexity) {
+  return new Array(
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity),
+    getRandomInt(complexity)
+  );
+}
+
+const INITIAL_GAME_STATE = [
+  genArray(3),
+  genArray(3),
+  genArray(3),
+  genArray(3),
+  genArray(3),
+  genArray(3),
+  genArray(3),
+  genArray(3),
+];
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
@@ -26,7 +39,7 @@ export default function Board() {
     setGameState((prevState) => {
       return prevState.map((row, rowIndex) =>
         rowIndex == r
-          ? row.map((cell, cellIndex) => (cellIndex == c ? (cell = 2) : cell))
+          ? row.map((cell, cellIndex) => (cellIndex == c ? (cell = 5) : cell))
           : row
       );
     });
@@ -35,8 +48,9 @@ export default function Board() {
 
   const handleNewGame = () => {
     if (isOver) {
-      setGameState(INITIAL_GAME_STATE);
-      setIsOver(false);
+      window.location.reload();
+      // setGameState(INITIAL_GAME_STATE);
+      // setIsOver(false);
     }
   };
 

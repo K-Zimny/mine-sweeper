@@ -22,12 +22,12 @@ h2 {
 }
 
 .board td {
-  border: 1px solid #8b8b8b;
   width: 60px;
   height: 60px;
   background: #9d9d9d;
+  border: 1px solid silver;
   &:hover {
-    background: #aba2a2;
+    background: #695858;
   }
 }
 
@@ -37,6 +37,16 @@ h2 {
 
 .board td.empty {
   background: #d4d4d4;
+  pointer-events: none;
+}
+
+.board td.flag {
+  background: #d4d4d4;
+  pointer-events: none;
+}
+
+.board td.unexplored {
+  cursor: url(../public/metal-detector.png), auto;
 }
 
 button {
