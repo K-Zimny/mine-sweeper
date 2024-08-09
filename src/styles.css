@@ -58,7 +58,7 @@ button {
   color: #ededed;
   margin-top: 3rem;
   margin: auto;
-  margin-block: 3rem;
+  margin-bottom: 3rem;
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   background-color: #626262a8;
@@ -84,4 +84,8 @@ button {
 
 .readme h2 {
   color: #ededed;
+}
+
+.last-try {
+  color: black;
 }

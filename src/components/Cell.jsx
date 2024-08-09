@@ -23,11 +23,17 @@ export default function Cell({ onGameUpdate, gameState, isOver, id }) {
             : cellValue === 5
             ? "mine"
             : "unexplored"
+          : cellValue === 0
+          ? "unexplored"
+          : cellValue === 1
+          ? "empty"
+          : cellValue === 2
+          ? "flag"
           : cellValue === 3
           ? "unexplored"
           : cellValue === 5
           ? "mine"
-          : "empty"
+          : "unexplored"
       }
       onClick={onGameUpdate}
     >

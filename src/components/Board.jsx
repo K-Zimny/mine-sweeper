@@ -80,7 +80,7 @@ export default function Board() {
 
   return (
     <>
-      {fails > 2 && (
+      {fails > 3 && (
         <div class="readme">
           <h1>
             Thank you for playing Parody Minesweeper: the Unwinnable Challenge!
@@ -120,6 +120,34 @@ export default function Board() {
                 and mislead.
               </li>
             </ul>
+          </section>
+
+          <section>
+            <h2>A Philosophical Reflection on Winning and Letting Go</h2>
+            <p>
+              In life, there are moments where no matter how hard we try,
+              victory remains elusive. The more we struggle, the more we
+              entangle ourselves in the web of expectations, desires, and the
+              illusion of control. It is in these moments that we confront an
+              essential truth: some battles cannot be won, and the pursuit of
+              victory becomes a source of suffering.
+            </p>
+
+            <p>
+              True wisdom lies in recognizing when we are fighting a losing
+              battle, not as a sign of defeat, but as an opportunity to
+              transcend the need to win. Letting go does not mean giving up;
+              rather, it is an act of liberation. It frees us from the chains of
+              attachment and the endless cycle of striving for an outcome that
+              may never come.
+            </p>
+
+            <p>
+              By embracing the art of letting go, we discover a deeper form of
+              victory—one that is not bound by external success, but rooted in
+              inner peace. In letting go, we win by releasing the need to win,
+              and in that release, we find true freedom.
+            </p>
           </section>
 
           <section>
@@ -187,6 +215,7 @@ export default function Board() {
         </tbody>
       </table>
       <div className="lose-container">
+        {fails == 3 && <h1 className="last-try">Come On, one last try!</h1>}
         {isOver && (
           <>
             <h2>You Lose</h2>
