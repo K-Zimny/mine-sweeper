@@ -1,7 +1,7 @@
 body {
   background: linear-gradient(45deg, black, transparent);
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h2 {
@@ -19,6 +19,7 @@ h2 {
   border-style: groove;
   border-width: 20px;
   border-color: #bfbebe;
+  margin-block: 1rem;
 }
 
 .board td {
@@ -56,4 +57,23 @@ button {
   padding: 0.25rem 0.5rem;
   border: 5px groove whitesmoke;
   font-size: 1.25rem;
+}
+
+.readme {
+  color: #ededed;
+  text-align: left;
+  margin-top: 3rem;
+  width: 50%;
+  padding-inline: 20%;
+  padding-block: 3rem;
+  margin: auto;
+  margin-top: 3rem;
+  backdrop-filter: blur(18px);
+  background-color: #2a2a2aa8;
+  border: 1px solid transparent;
+  border-radius: 10%;
+}
+
+.readme h2 {
+  color: #ededed;
 }
