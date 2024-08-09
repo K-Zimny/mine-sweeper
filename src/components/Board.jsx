@@ -49,8 +49,6 @@ export default function Board() {
   const handleNewGame = () => {
     if (isOver) {
       window.location.reload();
-      // setGameState(INITIAL_GAME_STATE);
-      // setIsOver(false);
     }
   };
 
