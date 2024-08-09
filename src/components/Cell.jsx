@@ -16,9 +16,11 @@ export default function Cell({ onGameUpdate, gameState, id }) {
           ? "flag"
           : cellValue === 3
           ? "hidden-mine"
+          : cellValue === 4
+          ? "unexplored"
           : cellValue === 5
           ? "mine"
-          : ""
+          : "unexplored"
       }
       onClick={onGameUpdate}
     >
@@ -28,9 +30,12 @@ export default function Cell({ onGameUpdate, gameState, id }) {
         ? " "
         : cellValue === 3
         ? "💣"
+        : cellValue === 4
+        ? ""
         : cellValue === 5
         ? "💣"
-        : getRandomInt(3) + 1}
+        : // : getRandomInt(3) + 1}
+          cellValue}
     </td>
   );
 }

@@ -19,16 +19,16 @@ function genArray(complexity) {
   );
 }
 
-const INITIAL_GAME_STATE = [
-  genArray(3),
-  genArray(3),
-  genArray(3),
-  genArray(3),
-  genArray(3),
-  genArray(3),
-  genArray(3),
-  genArray(3),
-];
+const INITIAL_GAME_STATE = new Array(
+  genArray(5),
+  genArray(5),
+  genArray(5),
+  genArray(5),
+  genArray(5),
+  genArray(5),
+  genArray(5),
+  genArray(5)
+);
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
@@ -48,7 +48,18 @@ export default function Board() {
 
   const handleNewGame = () => {
     if (isOver) {
-      window.location.reload();
+      setGameState(
+        new Array(
+          genArray(5),
+          genArray(5),
+          genArray(5),
+          genArray(5),
+          genArray(5),
+          genArray(5),
+          genArray(5),
+          genArray(5)
+        )
+      );
     }
   };
 
