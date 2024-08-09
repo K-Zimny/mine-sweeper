@@ -50,13 +50,21 @@ h2 {
   cursor: url(../public/metal-detector.png), auto;
 }
 
+.lose-container {
+  height: 400px;
+}
+
 button {
-  display: block;
+  color: #ededed;
+  margin-top: 3rem;
   margin: auto;
-  background: ghostwhite;
-  padding: 0.25rem 0.5rem;
-  border: 5px groove whitesmoke;
-  font-size: 1.25rem;
+  margin-block: 3rem;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  background-color: #626262a8;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 2rem;
 }
 
 .readme {
