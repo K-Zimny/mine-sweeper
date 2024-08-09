@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
 
+const COMPLEXITY = 5;
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -20,14 +22,14 @@ function genArray(complexity) {
 }
 
 const INITIAL_GAME_STATE = new Array(
-  genArray(5),
-  genArray(5),
-  genArray(5),
-  genArray(5),
-  genArray(5),
-  genArray(5),
-  genArray(5),
-  genArray(5)
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY),
+  genArray(COMPLEXITY)
 );
 
 export default function Board() {
@@ -60,6 +62,7 @@ export default function Board() {
           genArray(5)
         )
       );
+      setIsOver(false);
     }
   };
 
@@ -85,6 +88,7 @@ export default function Board() {
                   key={[rowIndex, cellIndex]}
                   id={[rowIndex, cellIndex]}
                   gameState={gameState}
+                  isOver={isOver}
                   onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
                 />
               ))}
