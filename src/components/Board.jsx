@@ -85,6 +85,7 @@ export default function Board() {
       </table>
       {isOver && (
         <>
+          <h2>You Lose</h2>
           <h2>{taunts[getRandomInt(taunts.length)]}</h2>
           <button onClick={handleNewGame}>Play Again?</button>
         </>
