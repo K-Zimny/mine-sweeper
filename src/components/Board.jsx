@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
+import borderngen from "../bordergen";
 
-const COMPLEXITY = 5;
+const COMPLEXITY = 5; // shapes cell content.
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -11,25 +12,25 @@ function getRandomInt(max) {
 function genArray(complexity) {
   return new Array(
     getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
     getRandomInt(complexity)
+    // getRandomInt(complexity)
+    // getRandomInt(complexity),
+    // getRandomInt(complexity),
+    // getRandomInt(complexity),
+    // getRandomInt(complexity),
+    // getRandomInt(complexity)
   );
 }
 
 const INITIAL_GAME_STATE = new Array(
   genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
   genArray(COMPLEXITY)
+  // genArray(COMPLEXITY)
+  // genArray(COMPLEXITY),
+  // genArray(COMPLEXITY),
+  // genArray(COMPLEXITY),
+  // genArray(COMPLEXITY),
+  // genArray(COMPLEXITY)
 );
 
 export default function Board() {
@@ -77,6 +78,24 @@ export default function Board() {
       });
     }
   }, [isOver]);
+
+  useEffect(() => {
+    gameState.map((row, rowIndex) => {
+      row.map((cell, cellIndex) => {
+        const currentCellOrigin = [rowIndex, cellIndex];
+        const currentCell = {
+          value: cell,
+          origin: currentCellOrigin,
+          top: [currentCellOrigin[0] - 1, currentCellOrigin[1]],
+          right: [currentCellOrigin[0], currentCellOrigin[1] + 1],
+          bottom: [currentCellOrigin[0] + 1, currentCellOrigin[1]],
+          left: [currentCellOrigin[0], currentCellOrigin[1] - 1],
+        };
+        console.log("current Cell: ", JSON.stringify(currentCell, null, 4));
+        // find values How can I find the values of the cells that are identified? I am able to locate the cell, now I just need to get the value.
+      });
+    });
+  }, [gameState]);
 
   return (
     <>

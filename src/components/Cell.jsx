@@ -3,7 +3,6 @@ function getRandomInt(max) {
 }
 
 export default function Cell({ onGameUpdate, gameState, isOver, id }) {
-  console.log("isOVer", isOver);
   const cellValue = gameState[id[0]][id[1]];
   return (
     <td
