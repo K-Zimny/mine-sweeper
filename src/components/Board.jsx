@@ -2,35 +2,53 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
 
-const COMPLEXITY = 5;
+const GAME_COLS = 9;
+const GAME_ROWS = 9;
+const COMPLEXITY = 5; // shapes cell content.
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function genArray(complexity) {
-  return new Array(
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity),
-    getRandomInt(complexity)
-  );
+function genArray(complexity, amount) {
+  const arr = [];
+  for (let i = 0; i < amount; i++) {
+    arr.push(getRandomInt(complexity));
+  }
+  console.log(arr);
+  return arr;
+  // new Array(
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity)
+  // );
 }
 
-const INITIAL_GAME_STATE = new Array(
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY)
-);
+function genGameRows(amount, COMPLEXITY) {
+  const arr = [];
+  for (let i = 0; i < amount; i++) {
+    arr.push(genArray(COMPLEXITY, GAME_COLS));
+  }
+  console.log(arr);
+  return arr;
+}
+
+const INITIAL_GAME_STATE = genGameRows(GAME_ROWS, COMPLEXITY);
+// new Array(
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS)
+// );
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
@@ -52,16 +70,17 @@ export default function Board() {
   const handleNewGame = () => {
     if (isOver) {
       setGameState(
-        new Array(
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5)
-        )
+        genGameRows(GAME_ROWS, COMPLEXITY)
+        // new Array(
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5)
+        // )
       );
       setIsOver(false);
       setFails((prevState) => prevState + 1);
@@ -77,6 +96,24 @@ export default function Board() {
       });
     }
   }, [isOver]);
+
+  // useEffect(() => {
+  //   gameState.map((row, rowIndex) => {
+  //     row.map((cell, cellIndex) => {
+  //       const currentCellOrigin = [rowIndex, cellIndex];
+  //       const currentCell = {
+  //         value: cell,
+  //         origin: currentCellOrigin,
+  //         top: [currentCellOrigin[0] - 1, currentCellOrigin[1]],
+  //         right: [currentCellOrigin[0], currentCellOrigin[1] + 1],
+  //         bottom: [currentCellOrigin[0] + 1, currentCellOrigin[1]],
+  //         left: [currentCellOrigin[0], currentCellOrigin[1] - 1],
+  //       };
+  //       console.log("current Cell: ", JSON.stringify(currentCell, null, 4));
+  //       // find values How can I find the values of the cells that are identified? I am able to locate the cell, now I just need to get the value.
+  //     });
+  //   });
+  // }, [gameState]);
 
   return (
     <>
