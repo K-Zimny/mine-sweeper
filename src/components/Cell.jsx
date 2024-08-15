@@ -36,7 +36,8 @@ export default function Cell({ onGameUpdate, gameState, isOver, id }) {
       }
       onClick={onGameUpdate}
     >
-      {!isOver
+      {cellValue}
+      {/* {!isOver
         ? cellValue === 0
           ? " "
           : cellValue === 1
@@ -53,7 +54,7 @@ export default function Cell({ onGameUpdate, gameState, isOver, id }) {
         ? "💣"
         : cellValue === 5
         ? "💣"
-        : cellValue}
+        : cellValue} */}
     </td>
   );
 }

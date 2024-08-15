@@ -1,40 +1,60 @@
 import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
-import borderngen from "../bordergen";
 
-const COMPLEXITY = 5; // shapes cell content.
+const GRID_SIZE = 8;
+const GAME_COLS = GRID_SIZE;
+const GAME_ROWS = GRID_SIZE;
+
+const COMPLEXITY = 3; // shapes cell content.
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function genArray(complexity) {
-  return new Array(
-    getRandomInt(complexity),
-    getRandomInt(complexity)
-    // getRandomInt(complexity)
-    // getRandomInt(complexity),
-    // getRandomInt(complexity),
-    // getRandomInt(complexity),
-    // getRandomInt(complexity),
-    // getRandomInt(complexity)
-  );
+function genArray(complexity, amount) {
+  const arr = [];
+  for (let i = 0; i < amount; i++) {
+    arr.push(getRandomInt(complexity));
+  }
+  console.log(arr);
+  return arr;
+  // new Array(
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity),
+  //   getRandomInt(complexity)
+  // );
 }
 
-const INITIAL_GAME_STATE = new Array(
-  genArray(COMPLEXITY),
-  genArray(COMPLEXITY)
-  // genArray(COMPLEXITY)
-  // genArray(COMPLEXITY),
-  // genArray(COMPLEXITY),
-  // genArray(COMPLEXITY),
-  // genArray(COMPLEXITY),
-  // genArray(COMPLEXITY)
-);
+function genGameRows(amount, COMPLEXITY) {
+  const arr = [];
+  for (let i = 0; i < amount; i++) {
+    arr.push(genArray(COMPLEXITY, GAME_COLS));
+  }
+  console.log(arr);
+  return arr;
+}
+
+const INITIAL_GAME_STATE = genGameRows(GAME_ROWS, COMPLEXITY);
+// new Array(
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS),
+//   genArray(COMPLEXITY, GAME_COLS)
+// );
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
+  const [valueArray, setValueArray] = useState([]);
   const [isOver, setIsOver] = useState(false);
   const [fails, setFails] = useState(0);
 
@@ -53,16 +73,17 @@ export default function Board() {
   const handleNewGame = () => {
     if (isOver) {
       setGameState(
-        new Array(
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5),
-          genArray(5)
-        )
+        genGameRows(GAME_ROWS, COMPLEXITY)
+        // new Array(
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5),
+        //   genArray(5)
+        // )
       );
       setIsOver(false);
       setFails((prevState) => prevState + 1);
@@ -79,20 +100,52 @@ export default function Board() {
     }
   }, [isOver]);
 
+  const validateCoord = () => {};
+
   useEffect(() => {
+    console.log("gameState:", gameState);
     gameState.map((row, rowIndex) => {
       row.map((cell, cellIndex) => {
         const currentCellOrigin = [rowIndex, cellIndex];
         const currentCell = {
           value: cell,
           origin: currentCellOrigin,
-          top: [currentCellOrigin[0] - 1, currentCellOrigin[1]],
-          right: [currentCellOrigin[0], currentCellOrigin[1] + 1],
-          bottom: [currentCellOrigin[0] + 1, currentCellOrigin[1]],
-          left: [currentCellOrigin[0], currentCellOrigin[1] - 1],
+          top:
+            gameState[currentCellOrigin[0] - 1] !== undefined
+              ? gameState[currentCellOrigin[0] - 1][currentCellOrigin[1]]
+              : undefined,
+
+          right:
+            gameState[currentCellOrigin[1] + 1] !== undefined
+              ? gameState[currentCellOrigin[0]][currentCellOrigin[1] + 1]
+              : undefined,
+
+          bottom:
+            gameState[currentCellOrigin[0] + 1] !== undefined
+              ? gameState[currentCellOrigin[0] + 1][currentCellOrigin[1]]
+              : undefined,
+
+          left:
+            gameState[currentCellOrigin[1] - 1] !== undefined
+              ? gameState[currentCellOrigin[0]][currentCellOrigin[1] - 1]
+              : undefined,
         };
-        console.log("current Cell: ", JSON.stringify(currentCell, null, 4));
+
+        // Im trying to referece an index on the game board that doesnt exist and that is throwing an error.
+        //
+
+        //
+
+        //
+        //
+        // console.log(
+        //   "gameState right: ",
+        //   gameState[currentCell.right[0]][currentCell.right[1]]
+        // );
+        // console.log("current Cell: ", JSON.stringify(currentCell, null, 4));
+        // console.log("currentCell.right index", currentCell.right);
         // find values How can I find the values of the cells that are identified? I am able to locate the cell, now I just need to get the value.
+        console.log(currentCell);
       });
     });
   }, [gameState]);
