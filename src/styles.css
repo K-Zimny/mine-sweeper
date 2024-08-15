@@ -26,7 +26,8 @@ h2 {
   width: 60px;
   height: 60px;
   background: #9d9d9d;
-  border: 1px solid silver;
+  border: 5px groove #a1a1a1;
+  border-radius: 10px;
   &:hover {
     background: #695858;
   }
@@ -88,4 +89,26 @@ button {
 
 .last-try {
   color: black;
+}
+
+/* Borders */
+
+[data-top="borderless-top"] {
+  border-top: transparent !important;
+  border-radius: 0px !important;
+}
+
+[data-right="borderless-right"] {
+  border-right: transparent !important;
+  border-radius: 0px !important;
+}
+
+[data-left="borderless-left"] {
+  border-left: transparent !important;
+  border-radius: 0px !important;
+}
+
+[data-bottom="borderless-bottom"] {
+  border-bottom: transparent !important;
+  border-radius: 0px !important;
 }

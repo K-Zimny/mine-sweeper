@@ -6,7 +6,8 @@ const GRID_SIZE = 8;
 const GAME_COLS = GRID_SIZE;
 const GAME_ROWS = GRID_SIZE;
 
-const COMPLEXITY = 3; // shapes cell content.
+const COMPLEXITY = 2; // shapes cell content.
+// Complexity 2 result in binary board.
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -17,7 +18,7 @@ function genArray(complexity, amount) {
   for (let i = 0; i < amount; i++) {
     arr.push(getRandomInt(complexity));
   }
-  console.log(arr);
+  // console.log(arr);
   return arr;
   // new Array(
   //   getRandomInt(complexity),
@@ -36,7 +37,7 @@ function genGameRows(amount, COMPLEXITY) {
   for (let i = 0; i < amount; i++) {
     arr.push(genArray(COMPLEXITY, GAME_COLS));
   }
-  console.log(arr);
+  // console.log(arr);
   return arr;
 }
 
@@ -54,7 +55,7 @@ const INITIAL_GAME_STATE = genGameRows(GAME_ROWS, COMPLEXITY);
 
 export default function Board() {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
-  const [valueArray, setValueArray] = useState([]);
+  const [borderState, SetBorderState] = useState("null");
   const [isOver, setIsOver] = useState(false);
   const [fails, setFails] = useState(0);
 
@@ -100,55 +101,41 @@ export default function Board() {
     }
   }, [isOver]);
 
-  const validateCoord = () => {};
+  // useEffect(() => {
+  //   console.log("gameState:", gameState);
+  //   SetBorderState(() => {
+  //     gameState.map((row, rowIndex) => {
+  //       row.map((cell, cellIndex) => {
+  //         const currentCellOrigin = [rowIndex, cellIndex];
+  //         const currentCell = {
+  //           value: cell,
+  //           origin: currentCellOrigin,
+  //           top:
+  //             gameState[currentCellOrigin[0] - 1] !== undefined
+  //               ? gameState[currentCellOrigin[0] - 1][currentCellOrigin[1]]
+  //               : undefined,
 
-  useEffect(() => {
-    console.log("gameState:", gameState);
-    gameState.map((row, rowIndex) => {
-      row.map((cell, cellIndex) => {
-        const currentCellOrigin = [rowIndex, cellIndex];
-        const currentCell = {
-          value: cell,
-          origin: currentCellOrigin,
-          top:
-            gameState[currentCellOrigin[0] - 1] !== undefined
-              ? gameState[currentCellOrigin[0] - 1][currentCellOrigin[1]]
-              : undefined,
+  //           right:
+  //             gameState[currentCellOrigin[1] + 1] !== undefined
+  //               ? gameState[currentCellOrigin[0]][currentCellOrigin[1] + 1]
+  //               : undefined,
 
-          right:
-            gameState[currentCellOrigin[1] + 1] !== undefined
-              ? gameState[currentCellOrigin[0]][currentCellOrigin[1] + 1]
-              : undefined,
+  //           bottom:
+  //             gameState[currentCellOrigin[0] + 1] !== undefined
+  //               ? gameState[currentCellOrigin[0] + 1][currentCellOrigin[1]]
+  //               : undefined,
 
-          bottom:
-            gameState[currentCellOrigin[0] + 1] !== undefined
-              ? gameState[currentCellOrigin[0] + 1][currentCellOrigin[1]]
-              : undefined,
-
-          left:
-            gameState[currentCellOrigin[1] - 1] !== undefined
-              ? gameState[currentCellOrigin[0]][currentCellOrigin[1] - 1]
-              : undefined,
-        };
-
-        // Im trying to referece an index on the game board that doesnt exist and that is throwing an error.
-        //
-
-        //
-
-        //
-        //
-        // console.log(
-        //   "gameState right: ",
-        //   gameState[currentCell.right[0]][currentCell.right[1]]
-        // );
-        // console.log("current Cell: ", JSON.stringify(currentCell, null, 4));
-        // console.log("currentCell.right index", currentCell.right);
-        // find values How can I find the values of the cells that are identified? I am able to locate the cell, now I just need to get the value.
-        console.log(currentCell);
-      });
-    });
-  }, [gameState]);
+  //           left:
+  //             gameState[currentCellOrigin[1] - 1] !== undefined
+  //               ? gameState[currentCellOrigin[0]][currentCellOrigin[1] - 1]
+  //               : undefined,
+  //         };
+  //         console.log("current Cell: ", currentCell);
+  //         return currentCell;
+  //       });
+  //     });
+  //   });
+  // }, [gameState]);
 
   return (
     <>
@@ -273,15 +260,50 @@ export default function Board() {
           {/*Map over initial game state, generating all rows and cells*/}
           {INITIAL_GAME_STATE.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <Cell
-                  key={[rowIndex, cellIndex]}
-                  id={[rowIndex, cellIndex]}
-                  gameState={gameState}
-                  isOver={isOver}
-                  onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
-                />
-              ))}
+              {row.map((cell, cellIndex) => {
+                const currentCellOrigin = [rowIndex, cellIndex];
+                const currentCell = {
+                  value: cell,
+                  origin: currentCellOrigin,
+                  top:
+                    gameState[currentCellOrigin[0] - 1] !== undefined
+                      ? gameState[currentCellOrigin[0] - 1][
+                          currentCellOrigin[1]
+                        ]
+                      : undefined,
+
+                  right:
+                    gameState[currentCellOrigin[1] + 1] !== undefined
+                      ? gameState[currentCellOrigin[0]][
+                          currentCellOrigin[1] + 1
+                        ]
+                      : undefined,
+
+                  bottom:
+                    gameState[currentCellOrigin[0] + 1] !== undefined
+                      ? gameState[currentCellOrigin[0] + 1][
+                          currentCellOrigin[1]
+                        ]
+                      : undefined,
+
+                  left:
+                    gameState[currentCellOrigin[1] - 1] !== undefined
+                      ? gameState[currentCellOrigin[0]][
+                          currentCellOrigin[1] - 1
+                        ]
+                      : undefined,
+                };
+                return (
+                  <Cell
+                    key={[rowIndex, cellIndex]}
+                    id={[rowIndex, cellIndex]}
+                    currentCell={currentCell}
+                    gameState={gameState}
+                    isOver={isOver}
+                    onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
+                  />
+                );
+              })}
             </tr>
           ))}
         </tbody>
