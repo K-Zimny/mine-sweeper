@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { taunts } from "../taunts";
 
-const GRID_SIZE = 8;
+const GRID_SIZE = 100;
 const GAME_COLS = GRID_SIZE;
 const GAME_ROWS = GRID_SIZE;
 

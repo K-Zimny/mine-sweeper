@@ -25,7 +25,7 @@ export default function Cell({
   id,
   currentCell,
 }) {
-  console.log("currentCell: ", currentCell);
+  // console.log("currentCell: ", currentCell);
 
   const cellValue = gameState[id[0]][id[1]];
   return (
@@ -69,7 +69,7 @@ export default function Cell({
       onClick={onGameUpdate}
     >
       {/* {cellValue} */}
-      {cellValue === 0 ? "" : cellValue === 1 ? cellValue : ""}
+      {cellValue === 0 ? "" : cellValue === 1 ? "" : ""}
       {/* {!isOver
         ? cellValue === 0
           ? " "
